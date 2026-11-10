@@ -440,6 +440,63 @@ html.big .hl { white-space: normal; border-radius: 1.4rem; }
   html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
 }
+
+/* Chat de asistencia (demostración) */
+.chat-fab {
+  position: fixed; right: max(1rem, env(safe-area-inset-right, 0px)); bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  z-index: 60; display: inline-flex; align-items: center; gap: .55rem;
+  min-height: 56px; padding: 0 1.15rem; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--brand); color: var(--brand-ink); font-weight: 700; box-shadow: var(--shadow);
+}
+.chat-fab svg { width: 24px; height: 24px; flex: none; }
+.chat-fab .dot { position: absolute; top: 6px; right: 8px; width: 12px; height: 12px; border-radius: 50%; background: #FFB020; border: 2px solid var(--bg); }
+.chat-fab[aria-expanded="true"] .dot { display: none; }
+.chat-panel {
+  position: fixed; right: max(1rem, env(safe-area-inset-right, 0px)); bottom: calc(max(1rem, env(safe-area-inset-bottom, 0px)) + 68px);
+  z-index: 60; width: min(380px, calc(100vw - 2rem)); height: min(560px, calc(100vh - 7rem));
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow);
+  transform-origin: bottom right; transition: transform .18s ease, opacity .18s ease;
+}
+.chat-panel[hidden] { display: none; }
+.chat-head { display: flex; align-items: center; gap: .75rem; padding: .85rem 1rem; background: var(--brand); color: var(--brand-ink); }
+.chat-avatar { width: 38px; height: 38px; border-radius: 50%; background: #fff; color: var(--brand-text); display: grid; place-items: center; font: 700 1.15rem "Quicksand", sans-serif; flex: none; }
+.chat-head b { display: block; line-height: 1.2; }
+.chat-head small { display: block; opacity: .9; font-size: .8em; }
+.chat-close { margin-left: auto; width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(255,255,255,.18); color: inherit; font-size: 1.3rem; line-height: 1; cursor: pointer; }
+.chat-log { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: .6rem; background: var(--panel); }
+.msg { max-width: 85%; padding: .6rem .85rem; border-radius: 16px; font-size: .95em; line-height: 1.45; overflow-wrap: anywhere; }
+.msg.bot { align-self: flex-start; background: var(--surface); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+.msg.me { align-self: flex-end; background: var(--brand); color: var(--brand-ink); border-bottom-right-radius: 4px; }
+.msg.typing { display: inline-flex; gap: 4px; padding: .8rem .9rem; }
+.msg.typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: chatDot 1s infinite ease-in-out; }
+.msg.typing i:nth-child(2) { animation-delay: .15s; }
+.msg.typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes chatDot { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+.chat-chips { display: flex; flex-wrap: wrap; gap: .4rem; padding: .6rem 1rem 0; background: var(--surface); }
+.chat-chips button { border: 1px solid var(--brand); background: var(--tint); color: var(--brand-text); border-radius: 999px; padding: .4rem .8rem; font-size: .85em; font-weight: 600; cursor: pointer; min-height: 36px; }
+.chat-form { display: flex; gap: .5rem; padding: .7rem 1rem; background: var(--surface); }
+.chat-form input { flex: 1; min-width: 0; min-height: 44px; padding: 0 .9rem; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); }
+.chat-form button { min-height: 44px; padding: 0 1rem; border: 0; border-radius: 999px; background: var(--btn-dark); color: var(--btn-dark-ink); font-weight: 700; cursor: pointer; }
+.chat-note { margin: 0; padding: 0 1rem .7rem; background: var(--surface); color: var(--muted); font-size: .72em; }
+/* Notificación push (simulada) */
+.push {
+  position: fixed; left: 50%; top: 50%; z-index: 90; width: min(400px, calc(100vw - 2rem));
+  display: flex; gap: .85rem; align-items: flex-start; padding: 1rem 1.1rem;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 24px 70px rgba(9,32,66,.28);
+  transform: translate(-50%, -46%) scale(.96); opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease;
+}
+.push.show { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+.push-ico { width: 44px; height: 44px; border-radius: 12px; background: var(--brand); color: var(--brand-ink); display: grid; place-items: center; font: 700 1.4rem "Quicksand", sans-serif; flex: none; }
+.push-body { flex: 1; min-width: 0; }
+.push-body small { color: var(--muted); font-size: .75em; }
+.push-body b { display: block; line-height: 1.25; margin-top: .1rem; }
+.push-body p { margin: .2rem 0 .7rem; color: var(--muted); font-size: .9em; line-height: 1.4; }
+.push-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+.push-actions a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 1rem; border-radius: 999px; background: var(--brand); color: var(--brand-ink); font-weight: 700; text-decoration: none; }
+.push-actions button { min-height: 40px; padding: 0 .9rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer; font-weight: 600; }
+.push-x { width: 36px; height: 36px; border: 0; background: transparent; font-size: 1.3rem; line-height: 1; cursor: pointer; color: var(--muted); flex: none; }
+@media (max-width: 480px) { .chat-fab span { display: none; } .chat-fab { padding: 0; width: 56px; justify-content: center; } }
 </style>
 </head>
 <body>
@@ -760,6 +817,39 @@ html.big .hl { white-space: normal; border-radius: 1.4rem; }
 </footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<div class="push" id="push" role="alert" aria-live="assertive">
+  <div class="push-ico" aria-hidden="true">M</div>
+  <div class="push-body">
+    <small>MODO · ahora</small>
+    <b id="pushTitle"></b>
+    <p id="pushText"></p>
+    <div class="push-actions">
+      <a href="#descargar" id="pushCta"></a>
+      <button type="button" id="pushLater">Ahora no</button>
+    </div>
+  </div>
+  <button class="push-x" id="pushClose" type="button" aria-label="Cerrar notificación">&times;</button>
+</div>
+
+<button class="chat-fab" id="chatFab" type="button" aria-expanded="false" aria-controls="chatPanel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.5-4.6A8 8 0 1 1 21 12z"/></svg>
+  <span>Ayuda</span><i class="dot" aria-hidden="true"></i>
+</button>
+<section class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat de asistencia de MODO" hidden>
+  <div class="chat-head">
+    <div class="chat-avatar" aria-hidden="true">M</div>
+    <div><b>Asistente MODO</b><small>Respondemos en el momento</small></div>
+    <button class="chat-close" id="chatClose" type="button" aria-label="Cerrar chat">&times;</button>
+  </div>
+  <div class="chat-log" id="chatLog" role="log" aria-live="polite"></div>
+  <div class="chat-chips" id="chatChips"></div>
+  <form class="chat-form" id="chatForm" autocomplete="off">
+    <input id="chatInput" type="text" placeholder="Escribí tu consulta" aria-label="Escribí tu consulta" maxlength="200">
+    <button type="submit">Enviar</button>
+  </form>
+  <p class="chat-note">Demostración: las respuestas son de ejemplo, no hay un asistente real.</p>
+</section>
+
 <script>
 (function () {
   var fmt = function (n) { return '$' + Math.round(n).toLocaleString('es-AR'); };
@@ -927,6 +1017,93 @@ html.big .hl { white-space: normal; border-radius: 1.4rem; }
       if (match) n++;
     });
     $('faqEmpty').hidden = n !== 0;
+  });
+})();
+
+/* Notificación push (simulada) */
+(function () {
+  var el = document.getElementById('push');
+  var msgs = [
+    { t: 'Descargá la app de MODO', p: 'Pagá con QR y juntá los beneficios de todos tus bancos, sin cargar saldo.', c: 'Descargar la app' },
+    { t: 'Abrí tu cuenta en MODO', p: 'Vinculá tus cuentas y tarjetas en un minuto y empezá a ahorrar.', c: 'Abrir mi cuenta' }
+  ];
+  var i = 0, hideT = null, closed = false;
+  try { closed = sessionStorage.getItem('pushClosed') === '1'; } catch (e) {}
+  function show() {
+    if (closed) return;
+    var m = msgs[i % msgs.length]; i++;
+    document.getElementById('pushTitle').textContent = m.t;
+    document.getElementById('pushText').textContent = m.p;
+    document.getElementById('pushCta').textContent = m.c;
+    el.classList.add('show');
+    clearTimeout(hideT); hideT = setTimeout(hide, 9000);
+  }
+  function hide() { el.classList.remove('show'); }
+  function dismiss() {
+    hide(); closed = true;
+    try { sessionStorage.setItem('pushClosed', '1'); } catch (e) {}
+  }
+  document.getElementById('pushClose').addEventListener('click', dismiss);
+  document.getElementById('pushLater').addEventListener('click', hide);
+  document.getElementById('pushCta').addEventListener('click', hide);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+  setTimeout(show, 5000);
+  setTimeout(show, 30000);
+})();
+
+/* Chat de asistencia (demostración) */
+(function () {
+  var fab = document.getElementById('chatFab'), panel = document.getElementById('chatPanel'),
+      log = document.getElementById('chatLog'), chips = document.getElementById('chatChips'),
+      form = document.getElementById('chatForm'), input = document.getElementById('chatInput');
+  var topics = [
+    { k: ['rechaz', 'pago'], label: 'Mi pago fue rechazado', a: 'Suele pasar por saldo o límite insuficiente, o porque la tarjeta no está vinculada. Revisá la cuenta elegida y reintentá. Si sigue igual, reclamá en tu banco con el comprobante.' },
+    { k: ['transfer', 'acredit'], label: 'Una transferencia no se acreditó', a: 'Mirá el comprobante en tu banco: si figura como realizada, el dinero puede demorar unos minutos. Si pasaron más de 24 horas, reclamá desde la app de tu banco.' },
+    { k: ['qr', 'codigo', 'código', 'escane'], label: 'El QR no funciona', a: 'Limpiá la cámara, acercate al código con buena luz y probá de nuevo. Si el comercio no acepta MODO, pedile que te muestre el cartel «Acepto MODO».' },
+    { k: ['vincul', 'tarjeta', 'cuenta'], label: 'No puedo vincular mi tarjeta', a: 'Verificá que tu banco esté adherido y que los datos coincidan con los de tu home banking. Podés vincularla desde la app de tu banco o desde MODO.' },
+    { k: ['ingres', 'entrar', 'clave'], label: 'No puedo ingresar a la app', a: 'Probá actualizar la app y revisar tu conexión. Si olvidaste la clave, recuperala desde la pantalla de inicio. También podés entrar desde la app de tu banco.' },
+    { k: ['reintegr', 'descuent', 'promo'], label: 'No me llegó un reintegro', a: 'Los reintegros tienen tope y días de vigencia. Revisá las condiciones de la promo y la fecha de acreditación de tu banco, que suele ser de hasta 10 días hábiles.' }
+  ];
+  var fallback = 'No estoy seguro de haber entendido. Elegí una de las opciones o escribinos desde la app y te respondemos.';
+  var greeted = false;
+
+  function add(text, who) {
+    var d = document.createElement('div');
+    d.className = 'msg ' + who; d.textContent = text;
+    log.appendChild(d); log.scrollTop = log.scrollHeight; return d;
+  }
+  function reply(text) {
+    var t = document.createElement('div');
+    t.className = 'msg bot typing'; t.innerHTML = '<i></i><i></i><i></i>';
+    log.appendChild(t); log.scrollTop = log.scrollHeight;
+    setTimeout(function () { t.remove(); add(text, 'bot'); }, 700);
+  }
+  function ask(text) {
+    add(text, 'me');
+    var q = text.toLowerCase(), hit = null;
+    topics.forEach(function (t) { if (!hit && t.k.some(function (w) { return q.indexOf(w) !== -1; })) hit = t; });
+    reply(hit ? hit.a : fallback);
+  }
+  topics.forEach(function (t) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = t.label;
+    b.addEventListener('click', function () { ask(t.label); });
+    chips.appendChild(b);
+  });
+  function setOpen(open) {
+    panel.hidden = !open; fab.setAttribute('aria-expanded', String(open));
+    if (open) {
+      if (!greeted) { greeted = true; add('¡Hola! Soy el asistente de MODO. ¿En qué te ayudo?', 'bot'); }
+      input.focus();
+    } else { fab.focus(); }
+  }
+  fab.addEventListener('click', function () { setOpen(panel.hidden); });
+  document.getElementById('chatClose').addEventListener('click', function () { setOpen(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) setOpen(false); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value.trim(); if (!v) return;
+    input.value = ''; ask(v);
   });
 })();
 </script>
