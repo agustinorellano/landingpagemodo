@@ -300,11 +300,15 @@ p { margin: 0; }
 .app-shot { margin: 2.5rem 0 0; display: grid; gap: .9rem; justify-items: center; text-align: center; }
 .app-shot img { width: 100%; max-width: 46rem; height: auto; display: block; border-radius: 28px; box-shadow: var(--shadow); }
 .app-shot figcaption { color: var(--muted); max-width: 60ch; }
-.banks { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; margin-top: 3rem; }
-.banks-copy p { color: var(--muted); margin: .75rem 0 0; max-width: 40ch; }
-.banks figure { margin: 0; display: flex; justify-content: center; }
-.banks img { width: 100%; max-width: 26rem; height: auto; display: block; }
-@media (max-width: 760px) { .banks { grid-template-columns: 1fr; text-align: center; } .banks-copy p { margin-inline: auto; } .app-shot img { border-radius: 20px; } }
+.banks { position: relative; overflow: hidden; display: flex; align-items: center; min-height: 20rem; margin-top: 3rem; padding: clamp(1.75rem, 5vw, 3.5rem); background: #11408F; color: #fff; border-radius: 28px; }
+.banks-copy { position: relative; z-index: 1; max-width: 34rem; }
+.banks-copy h3 { font-size: calc(clamp(1.6rem, 3.2vw, 2.4rem) * var(--fs)); color: #fff; }
+.banks-copy p { margin: .9rem 0 1.5rem; color: #fff; font-size: calc(1.1rem * var(--fs)); }
+.banks-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 1.75rem; border-radius: 999px; background: #fff; color: #00492F; font-weight: 500; text-decoration: none; }
+.banks-btn:hover { background: var(--tint); }
+.banks figure { position: absolute; right: -4%; bottom: -3%; height: 118%; margin: 0; pointer-events: none; }
+.banks img { height: 100%; width: auto; display: block; }
+@media (max-width: 760px) { .banks { display: block; padding-bottom: 0; } .banks-copy { padding-bottom: 1.25rem; } .banks figure { position: relative; right: auto; bottom: auto; height: 15rem; margin: 0 -1.5rem 0 auto; width: 70%; } .banks img { margin-left: auto; } }
 .bento { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1rem; margin-top: 1rem; }
 .tile { border-radius: 32px; padding: 1.75rem; display: grid; gap: .6rem; align-content: start; }
 .tile.white { background: var(--surface); border: 1px solid var(--line); }
@@ -641,8 +645,9 @@ html.big .hl { white-space: normal; border-radius: 1.4rem; }
       </div>
       <div class="banks">
         <div class="banks-copy">
-          <h3>MODO reúne a más de treinta bancos</h3>
-          <p>Públicos, privados y cooperativos. Si tenés cuenta en alguno, ya podés usarlo.</p>
+          <h3>Pagá con QR desde la app de tu banco</h3>
+          <p>Más de treinta bancos ya están en MODO. Conocé con cuáles podés pagar y ahorrar.</p>
+          <a class="banks-btn" href="https://www.modo.com.ar/" target="_blank" rel="noopener">Conocer bancos asociados</a>
         </div>
         <figure><img src="img/bancos.png" width="1080" height="1061" loading="lazy" alt="Logos de bancos adheridos a MODO, entre ellos Santander, Galicia e ICBC"></figure>
       </div>
